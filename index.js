@@ -30,7 +30,19 @@ app.get('/', (req, res)=>{
  //  res.send('Hello, World');
   console.log(__dirname);
   res.sendFile(__dirname + '/view/index.html');
+//res.send(`I'm listening Index A. Please access with POST.`);
 })
+
+app.get('/i', (req, res)=>{
+ //  res.send('Hello, World');
+  console.log(__dirname);
+  res.sendFile(__dirname + '/view/index.html');
+})
+
+app.get('/a', (req, res) => { 
+   //res.send(`I'm listening Index A. Please access with POST.`);
+   res.sendFile(__dirname + '/view/index.html');
+});
 /*
 io.on('connection', (socket)=>{
   console.log('Hello');
