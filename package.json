@@ -21,7 +21,10 @@
     "gulp-babel": "^7.0.1",
     "gulp-clean-css": "^4.2.0",
     "gulp-concat": "^2.6.1",
+    "gulp-data-json": "^0.1.0",
     "gulp-file-include": "^2.1.0",
+    "gulp-hb": "^8.0.0",
+    "gulp-html-i18n": "^0.16.0",
     "gulp-newer": "^1.4.0",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
@@ -29,6 +32,7 @@
     "gulp-terser": "^1.2.0",
     "gulp-uglify": "^3.0.2",
     "gulp-util": "^3.0.8",
+    "http-proxy-middleware": "^1.0.3",
     "node-sass": "^4.13.1",
     "popper.js": "^1.16.1",
     "rimraf": "^3.0.0"
