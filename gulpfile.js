@@ -12,6 +12,9 @@ const minify       = require('gulp-clean-css');
 const autoprefixer  = require('gulp-autoprefixer');
 const util         = require('gulp-util');
 const terser       = require('gulp-terser');
+const hb           = require('gulp-hb');
+const dataJson     = require("gulp-data-json");
+var nodemon        = require('gulp-nodemon');
 
 const paths = {
 
@@ -24,7 +27,16 @@ const paths = {
         src:    'src/assets/js/plugins/*.js',
         dest:   'dist/assets/js/plugins/'
     },
-
+    // i18n:{
+    //     all: 'src/assets/js/lang/**/*.js',
+    //     src: 'src/assets/js/lang/**/*.js',
+    //     dest:'src/assets/js/lang/'
+    // },
+    hb: {
+        all:    'src/assets/data/**/*.{js,json}',
+        src:    'src/assets/data/*.{js,json}',
+        dest:   'dist/assets/data/*.{js,json}'
+    },
     scss: {
         all:    'src/assets/scss/**/*',
         src:    'src/assets/scss/template.scss',
@@ -70,7 +82,7 @@ const paths = {
         src:    'src/assets/js/libs/*',
         dest:   'dist/assets/js/libs/'
     },
-
+    
     template_scripts: {
         src:    'src/assets/js/template.js',
         dest:   'dist/assets/js/',
@@ -118,8 +130,18 @@ function html() {
             indent:   true,
             context: {
                 theme: 'auto'
-            }
+            }   
         }))
+        .pipe(dataJson())
+        .pipe(hb()
+            .partials(paths.html.dest)
+            .data(paths.hb.src)
+        )
+        // .pipe(i18n({
+        //     langDir: path.i18n.dest,
+        //     renderEngine: 'mustache',
+        //     trace: true
+        //   }))
         .pipe(gulp.dest(paths.html.dest));
 }
 
@@ -184,6 +206,7 @@ gulp.task('deps', done => {
             .pipe(newer(files.to))
             .pipe(gulp.dest(files.to));
     });
+    //console.log(paths)
     done();
 });
 
@@ -211,32 +234,103 @@ function style_dark() {
         .pipe(gulp.dest(paths.scss.dest));
 }
 
+
+// gulp.task('default', done => {
+//     done();     
+// });
+
+gulp.task('default', async function () {
+    await console.log('Hello World!');
+});
+
 function reload(done) {
     server.reload();
     done();
 }
 
-function serve(done) {
+
+
+//  function serve(done) {
+//     server.init({
+        
+//         server: {
+//             baseDir: 'dist/'
+//         }
+    
+   
+//     });
+//     done();
+// }
+
+ function serve(done) {
     server.init({
+       // proxy: "http://localhost:3010", // port of node server
         server: {
             baseDir: 'dist/'
+        },
+        middleware: function (req, res, next) {
+            // console.log(req);
+            // console.log("Hi from middleware");
+            // console.log(res);
+            next();
+        },
+        // https: {
+        //     key: "path-to-custom.key",
+        //     cert: "path-to-custom.crt"
+        // }
+        //files: ["public/**/*.*"],
+       // files: ["dist/"],
+        browser: "google chrome",
+        //port: 3000,
+        socket: {
+            domain: 'localhost:3010'
         }
+  
     });
     done();
 }
 
-gulp.task('watch', function() {
-    gulp.watch(paths.html.all, gulp.series(html, reload));
-    gulp.watch(paths.scss.all, gulp.series(style, reload));
-    gulp.watch(paths.scss.all, gulp.series(style_dark, reload));
-    gulp.watch(paths.images.all, gulp.series(images, reload));
-    gulp.watch(paths.fonts.all, gulp.series(fonts, reload));
-    gulp.watch(paths.css.all, gulp.series(css, reload));
-    gulp.watch(paths.plugins.all, gulp.series(plugins, template_scripts, reload));
+
+
+// gulp.task('browser-sync', async function() {
+// 	server.init(null, {
+// 		proxy: "http://localhost:5000",
+//         files: ["public/**/*.*"],
+//         browser: "google chrome",
+//         port: 7000,
+// 	});
+// });
+
+
+
+gulp.task('nodemon', async function (cb) {
+	
+	var started = false;
+	
+	return nodemon({
+		script: 'index.js'
+	}).on('start', function () {
+		// to avoid nodemon being started multiple times
+		// thanks @matthisk
+		if (!started) {
+			cb();
+			started = true; 
+		} 
+	});
+});
+
+gulp.task('watch', async function() {
+    await gulp.watch(paths.html.all, gulp.series(html, reload));
+    await gulp.watch(paths.scss.all, gulp.series(style, reload));
+    await gulp.watch(paths.scss.all, gulp.series(style_dark, reload));
+    await gulp.watch(paths.images.all, gulp.series(images, reload));
+    await gulp.watch(paths.fonts.all, gulp.series(fonts, reload));
+    await gulp.watch(paths.css.all, gulp.series(css, reload));
+    await gulp.watch(paths.plugins.all, gulp.series(plugins, template_scripts, reload));
 });
 
 const dev = gulp.series(
-    'deps',
+   'deps',
     html,
     plugins,
     libs_scripts,
@@ -247,10 +341,16 @@ const dev = gulp.series(
     css,
     style,
     style_dark,
+   // 'default',
     serve,
 
-    'watch'
+    'watch',
+    
+    
+    'nodemon'
 );
+console.log('---2020-')
+console.log(dev)
 exports.default = dev;
 
 // Clean dist folder
