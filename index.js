@@ -1,12 +1,17 @@
 const express = require("express");
+
 const app = express();
+const es6Renderer = require('express-es6-template-engine');
+
+
 /*
 const server = require('http').Server(app);
 const io = require('socket.io')(server);*/
 const fs = require('fs');
 const https = require('https');
-
 const http = require('http');
+
+
 
 //const server = http.createServer(app);
 //const io = require('socket.io').listen(server);
@@ -26,23 +31,90 @@ const server = http.createServer(app);
 const io = require('socket.io').listen(server);
 const httpsServer = https.createServer(credentials, app);
 
+app.engine('html', es6Renderer);
+app.set('views', 'dist');
+app.set('view engine', 'html');
+
+
+/*****
+ * To do : ingore html file
+ */
+const options = {
+  dotfiles: 'ignore',
+  etag: false,
+  extensions: false,
+  index: false,
+  maxAge: '1d',
+  redirect: false,
+  setHeaders: function (res, path, stat) {
+    /**** not work */
+    if (path.indexOf(".htm") > 0){
+      console.log(path.indexOf(".htm"))
+      return false;
+    }else{
+      res.set('x-timestamp', Date.now());
+    }
+    
+  }
+}
+
+
+
+app.use(express.static('dist',options))
+
+
 app.get('/', (req, res)=>{
+  //  res.send('Hello, World');
+   console.log(__dirname);
+  
+ res.render('chat-1', {locals: {
+   
+  title: 'Welcome!',
+  chats: {
+    title: "聊天室"
+  },
+  friend: {
+    title: "朋友名單"
+  },
+  create_group: {
+    title: "建立群組"
+  },
+  profile: {
+    title: "個人資料"
+  },
+  demo: {
+    title: "ＤＥＭＯ"
+  }
+
+  }});
+ })
+
+
+app.get('/chch', (req, res)=>{
  //  res.send('Hello, World');
   console.log(__dirname);
   res.sendFile(__dirname + '/view/index.html');
 //res.send(`I'm listening Index A. Please access with POST.`);
 })
 
+app.get('/chat', (req, res)=>{
+  //  res.send('Hello, World');
+ 
+   res.sendFile(__dirname + '/view/chat-1.html');
+ //res.send(`I'm listening Index A. Please access with POST.`);
+ })
+
 app.get('/i', (req, res)=>{
  //  res.send('Hello, World');
   console.log(__dirname);
-  res.sendFile(__dirname + '/view/index.html');
+  res.sendFile(__dirname + '/dist/index.html');
 })
 
 app.get('/a', (req, res) => { 
    //res.send(`I'm listening Index A. Please access with POST.`);
-   res.sendFile(__dirname + '/view/index.html');
+   res.sendFile(__dirname + '/dist/index.html');
 });
+
 /*
 io.on('connection', (socket)=>{
   console.log('Hello');
@@ -89,9 +161,9 @@ io.on('connection', (socket) => {
 
 
 
-server.listen(3000, ()=>{
+server.listen(3010, ()=>{
 
-  console.log("Server Stared. http://localhost:3000");
+  console.log("Server Stared. http://localhost:3010");
 
 });
 
