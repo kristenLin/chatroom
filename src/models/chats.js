@@ -1,7 +1,34 @@
 var mongoose = require('mongoose');
-var Schema   = mongoose.schema;
+var Schema   = mongoose.Schema;
 
+const connectMongo = 'mongodb://root:example@localhost:27017/lala';
+mongoose.connect();
+//Set up default mongoose connection
+
+mongoose.connect(connectMongo);
+// Get Mongoose to use the global promise library
+mongoose.Promise = global.Promise;
+//Get the default connection
+var db = mongoose.connection;
+
+//Bind connection to error event (to get notification of connection errors)
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+/**
+ * 
+ ______   __                    __              
+ /      \ /  |                  /  |             
+/$$$$$$  |$$ |____    ______   _$$ |_    _______ 
+$$ |  $$/ $$      \  /      \ / $$   |  /       |
+$$ |      $$$$$$$  | $$$$$$  |$$$$$$/  /$$$$$$$/ 
+$$ |   __ $$ |  $$ | /    $$ |  $$ | __$$      \ 
+$$ \__/  |$$ |  $$ |/$$$$$$$ |  $$ |/  |$$$$$$  |
+$$    $$/ $$ |  $$ |$$    $$ |  $$  $$//     $$/ 
+ $$$$$$/  $$/   $$/  $$$$$$$/    $$$$/ $$$$$$$/                                                                           
+ * 
+ */
+                                                        
 /*****
+ *  **NEW ADD: room_id
  *  is_group -> one on one, 2 > people
  *  to_chat_id -> reply message
  *  read_count -> how many people read
@@ -15,6 +42,15 @@ var Chats = new Schema({
         required: true,
         unique  : true
 
+    },
+    room_id     : {
+        type    : String,
+        trim    : true,
+        required: true
+    },
+    createdAt   : {
+        type    : Date,
+        default : Date.now
     },
     updatedAt   : {
         type    : Date,
@@ -33,7 +69,12 @@ var Chats = new Schema({
     }
 })
 
+
+mongoose.model('chats',Chats);
+
+
 /****
+ * ADD: description
  *  member_ids:  {
  *      "Auser_id": member,
  *      "Buser_id": owner,
@@ -70,8 +111,23 @@ var ChatRoom = new Schema({
         type    : Boolean,
         default : false 
     }
-})
+});
 
+mongoose.model('chatroom',ChatRoom);
+/**
+ * 
+ __    __                                         
+/  |  /  |                                        
+$$ |  $$ |  _______   ______    ______    _______ 
+$$ |  $$ | /       | /      \  /      \  /       |
+$$ |  $$ |/$$$$$$$/ /$$$$$$  |/$$$$$$  |/$$$$$$$/ 
+$$ |  $$ |$$      \ $$    $$ |$$ |  $$/ $$      \ 
+$$ \__$$ | $$$$$$  |$$$$$$$$/ $$ |       $$$$$$  |
+$$    $$/ /     $$/ $$       |$$ |      /     $$/ 
+ $$$$$$/  $$$$$$$/   $$$$$$$/ $$/       $$$$$$$/  
+                                                                                                                                      
+ * 
+ */
 
 /****
  *  user_id -> system
@@ -120,17 +176,15 @@ var Users = new Schema({
     password    : String,
     birthday    : String,
     gender      : String,
-    nationality : String,
+    national_code: String,
     place_residence: String,
     recommend_id: String,
     signup_code : String,
     upload_avatar_number : Number,
     avatar      : String,
-    national_code: String,
     gender      : String,
     gender_tag  : String,
     gender_love : String,
-    place_residence: String,
     weight      : String,
     height      : String,
     status_recent: String,
@@ -142,7 +196,9 @@ var Users = new Schema({
         type    : Boolean,
         default : false 
     }
-})
+});
+
+mongoose.model('users',Users);
 
 
 
@@ -185,7 +241,8 @@ var AboutUser = new Schema({
     }
 
     
-})
+});
+mongoose.model('aboutuser',AboutUser);
 
 /****
  * 100 QA about user by system
@@ -221,7 +278,8 @@ var QAUser = new Schema({
         default : false 
     }
     
-})
+});
+mongoose.model('qauser',QAUser);
 
 
 
@@ -265,8 +323,8 @@ var UserPhoto = new Schema({
         default : false 
     }
     
-})
-
+});
+mongoose.model('userphoto',UserPhoto);
 
 /****
  * files = some links of file
@@ -301,7 +359,25 @@ var UserFiles = new Schema({
         default : false 
     }
     
-})
+});
+mongoose.model('userfiles',UserFiles);
+
+/***
+ * 
+ *   ______               __      __            __                     
+ /      \             /  |    /  |          /  |                    
+/$$$$$$  |  ______   _$$ |_   $$/   _______ $$ |  ______    _______ 
+$$ |__$$ | /      \ / $$   |  /  | /       |$$ | /      \  /       |
+$$    $$ |/$$$$$$  |$$$$$$/   $$ |/$$$$$$$/ $$ |/$$$$$$  |/$$$$$$$/ 
+$$$$$$$$ |$$ |  $$/   $$ | __ $$ |$$ |      $$ |$$    $$ |$$      \ 
+$$ |  $$ |$$ |        $$ |/  |$$ |$$ \_____ $$ |$$$$$$$$/  $$$$$$  |
+$$ |  $$ |$$ |        $$  $$/ $$ |$$       |$$ |$$       |/     $$/ 
+$$/   $$/ $$/          $$$$/  $$/  $$$$$$$/ $$/  $$$$$$$/ $$$$$$$/  
+                                                                    
+ * 
+ * 
+ */
+
 
 /****
  * read_permission: [everyone, TTL, PPL...]
@@ -324,16 +400,18 @@ var ArticleBoard = new Schema({
     },
     catagory    : String,
     title       : String,
+    link        : String,
     to_gender_love: String,
     read_permission:{
         type    : String,
-        default : "everyone"
+        default : "all"
     },
     deleted     :  {
         type    : Boolean,
         default : false 
     }
-})
+});
+mongoose.model('articleboard',ArticleBoard);
 
 /****
  * reply_at_id if re: Title happend
@@ -375,7 +453,9 @@ var Articles = new Schema({
         type    : Boolean,
         default : false 
     }
-})
+});
+mongoose.model('articles',Articles);
+
 
 /****
  *  floor is about floor number of message
@@ -419,7 +499,6 @@ var ArticleMessage = new Schema({
         type    : Boolean,
         default : false 
     }
-})
+});
 
-mongoose.model('Chat', Chat);
-mongoose.connect('mongodb//localhost/chats');
+mongoose.model('articlemessage',ArticleMessage);

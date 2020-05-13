@@ -13,7 +13,7 @@ const autoprefixer  = require('gulp-autoprefixer');
 const util         = require('gulp-util');
 const terser       = require('gulp-terser');
 const hb           = require('gulp-hb');
-const dataJson     = require("gulp-data-json");
+const dataJson     = require( 'gulp-data-json');
 var nodemon        = require('gulp-nodemon');
 
 const paths = {
@@ -86,6 +86,11 @@ const paths = {
     template_scripts: {
         src:    'src/assets/js/template.js',
         dest:   'dist/assets/js/',
+    },
+
+    api_scripts: {
+        src:    'src/assets/js/chatroom/*',
+        dest:   'dist/assets/js/chatroom/'
     },
 
     dependencies: [
@@ -179,6 +184,11 @@ function template_scripts() {
         .pipe(rename({suffix: '.min'}))
         .pipe(terser())
         .pipe(gulp.dest(paths.template_scripts.dest));
+}
+
+function api_scripts() {
+    return gulp.src(paths.api_scripts.src)
+        .pipe(gulp.dest(paths.api_scripts.dest));
 }
 
 function images() {
@@ -326,7 +336,9 @@ gulp.task('watch', async function() {
     await gulp.watch(paths.images.all, gulp.series(images, reload));
     await gulp.watch(paths.fonts.all, gulp.series(fonts, reload));
     await gulp.watch(paths.css.all, gulp.series(css, reload));
-    await gulp.watch(paths.plugins.all, gulp.series(plugins, template_scripts, reload));
+    await gulp.watch(paths.plugins.all, gulp.series(plugins, template_scripts,api_scripts, reload));
+   
+    
 });
 
 const dev = gulp.series(
@@ -336,6 +348,7 @@ const dev = gulp.series(
     libs_scripts,
     template_scripts,
     bootstrap_scripts,
+    api_scripts,
     images,
     fonts,
     css,
@@ -343,10 +356,7 @@ const dev = gulp.series(
     style_dark,
    // 'default',
     serve,
-
     'watch',
-    
-    
     'nodemon'
 );
 console.log('---2020-')

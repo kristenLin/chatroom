@@ -2,7 +2,7 @@ const express = require("express");
 
 const app = express();
 const es6Renderer = require('express-es6-template-engine');
-
+const mongoo = require('mongoose');
 
 /*
 const server = require('http').Server(app);
@@ -10,6 +10,7 @@ const io = require('socket.io')(server);*/
 const fs = require('fs');
 const https = require('https');
 const http = require('http');
+const articleBoards = require("./src/routes/articleBoards.js")
 
 
 
@@ -138,32 +139,32 @@ app.get('/', (req, res)=>{
       "tag": ["T","P","H","B","TS"],
       "name": ["T","P","不分","BI","跨性別"]
     },
-    "TP":{
+    "TPL":{
       "name": "TP戀",
       "pleaceholder": "選擇加入TP群組(成員包含T,P,不分)",
       "showif": ["T","P","H"]
     },
-    "TT":{
+    "TTL":{
       "name": "TT戀",
       "pleaceholder": "選擇加入TT群組(成員包含T,不分)",
       "showif": ["T","H"]
     },
-    "PP":{
+    "PPL":{
       "name": "PP戀",
       "pleaceholder": "選擇加入PP群組(成員包含P,不分)",
       "showif": ["P","H"]
     },
-    "HH":{
+    "HHL":{
       "name": "不分戀",
       "pleaceholder": "選擇加入不分群組(成員包含T,P,不分)",
       "showif": ["T","P","H"]
     },
-    "TS":{
+    "TSL":{
       "name": "跨性別之戀",
       "pleaceholder": "選擇加入跨性別之戀群組(成員包含T,P,不分,雙性戀,跨性別戀)",
       "showif": ["T","P","H","B","TS"]
     },
-    "BI":{
+    "BIL":{
       "name": "雙性戀",
       "pleaceholder": "選擇加入雙性戀群組(成員包含T,P,不分,雙性戀)",
       "showif": ["T","P","H","B"]
@@ -201,6 +202,7 @@ app.get('/', (req, res)=>{
   }});
  })
 
+app.use('/articleBoards', articleBoards);
 
 app.get('/chch', (req, res)=>{
  //  res.send('Hello, World');

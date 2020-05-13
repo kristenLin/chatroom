@@ -1,78 +1,165 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-tw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Chatroom</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+    </script>
+<style>
+    html, body {
+        padding: 0;
+        margin: 0;
+    }
 
-    <!-- Head -->
-    @@include("particles/head/head.html", { "theme": "auto" })
-    <!-- Head -->
+    #container {
+        top: 50px;
+        width: 500px;
+        margin: 0 auto;
+        display: block;
+        position: relative;
+    }
 
-    <body>
+    #status-box {
+        text-align: right;
+        font-size: .6em;
+    }
 
-        <div class="layout">
+    #content {
+        width: 100%;
+        height: 350px;
+        border: 1px solid darkolivegreen;
+        border-radius: 5px;
+        overflow: auto;
+    }
 
-            <!-- Navbar -->
-            @@include("particles/navigation/navigation.html")
-            <!-- Navbar -->
+    #send-box {
+        width: 100%;
+        text-align: center;
+    }
 
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <div class="tab-content h-100" role="tablist">
-                    <div class="tab-pane fade h-100" id="tab-content-create-chat" role="tabpanel">
-                        @@include("particles/sidebar/sidebar-create.html")
-                    </div>
+    #send-box input {
+        display: inline-block;
+    }
 
-                    <div class="tab-pane fade h-100" id="tab-content-friends" role="tabpanel">
-                        @@include("particles/sidebar/sidebar-friends.html")
-                    </div>
+    input[name="name"] {
+        width: 15%;
+    }
 
-                    <div class="tab-pane fade h-100 show active" id="tab-content-dialogs" role="tabpanel">
-                        @@include("particles/sidebar/sidebar-dialogs.html")
-                    </div>
+    input[name="msg"] {
+        width: 70%;
+    }
 
-                    <div class="tab-pane fade h-100" id="tab-content-demos" role="tabpanel">
-                        @@include("particles/sidebar/sidebar-demos.html")
-                    </div>
+    input[type="button"] {
+        width: 10%;
+    }
 
-                    <div class="tab-pane fade h-100" id="tab-content-user" role="tabpanel">
-                        @@include("particles/sidebar/sidebar-user.html")
-                    </div>
-                </div>
+    .msg {
+        width: 73%;
+        display: inline-block;
+        padding: 5px 0 5px 10px;
+    }
+
+    .msg > span {
+        width: 25%;
+        display: inline-block;
+    }
+
+    .msg > span::before {
+        color: darkred;
+        content: " { ";
+    } 
+
+    .msg > span::after {
+        color: darkred;
+        content: " } ";
+    }        
+</style>
+
+
+
+
+</head>
+<body>
+    <!--div>什麼都沒有做，只有連線。</div-->
+<body>
+    <div id="container">
+        <div id="status-box">Server: <span id="status">-</span> / <span id="online">0</span> online.</div>
+        <div id="content">
+            <!--div class="msg">
+                <span class="name">Duye</span>
+                Hello!
             </div>
-            <!-- Sidebar -->
-
-            <!-- Main Content -->
-            <div class="main" data-mobile-height="">
-
-                <!-- Default Page -->
-                <div class="chat flex-column justify-content-center text-center">
-                    <div class="container-xxl">
-
-                        <div class="avatar avatar-lg mb-5">
-                            <img class="avatar-img" src="assets/images/avatars/12.jpg" alt="">
-                        </div>
-
-                        <h6>Hey, Matthew!</h6>
-                        <p>Please select a chat to start messaging.</p>
-                    </div>
-                </div>
-                <!-- Default Page -->
-
-            </div>
-            <!-- Main Content -->
-
+            <div class="msg">
+                <span class="name">Alice</span>
+                Hi!
+            </div-->
         </div>
-        <!-- Layout -->
+        <div id="send-box">
+            <form id="send-form">
+                <input type="text" name="name" id="name" placeholder="暱稱">
+                <input type="text" name="msg" id="msg" placeholder="說點什麼？">
+                <input type="submit" value="送出">
+            </form>
+        </div>
+    </div>
 
-        <!-- DropzoneJS: Template -->
-        @@include("particles/dropzone/dropzone-template.html")
-        <!-- DropzoneJS: Template -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
 
-        <!-- Modal: Invite friends -->
-        @@include("particles/modal/invite.html")
-        <!-- Modal: Invite friends -->
+            var status = document.getElementById("status");
+            var online = document.getElementById("online");
+            var sendForm = document.getElementById("send-form");
+            var content = document.getElementById("content");    // 加入這行
 
-        <!-- Scripts -->
-        @@include("particles/script/script.html")
-        <!-- Scripts -->
+            // 加入這段
+    sendForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+ 
+        var formData = {};
+        var formChild = sendForm.children;
+ 
+        for (var i=0; i< sendForm.childElementCount; i++) {
+            var child = formChild[i];
+            if (child.name !== "") {
+                formData[child.name] = child.value;
+            }
+        }
+        socket.emit("send", formData);
+    });
 
-    </body>
+            socket.on("msg", function (d) {
+        var msgBox = document.createElement("div")
+            msgBox.className = "msg";
+        var nameBox = document.createElement("span");
+            nameBox.className = "name";
+        var name = document.createTextNode(d.name);
+        var msg = document.createTextNode(d.msg);
+ 
+        nameBox.appendChild(name);
+        msgBox.appendChild(nameBox);
+        msgBox.appendChild(msg);
+        content.appendChild(msgBox);
+    });
+  
+            socket.on("connect", function () {
+                status.innerText = "Connected.";
+            });
+
+            socket.on("disconnect", function () {
+                status.innerText = "Disconnected.";
+            });
+
+            socket.on("online", function (amount) {
+                online.innerText = amount;
+            });
+        });
+    </script>
+</body>
+
+
+</body>
 </html>
+

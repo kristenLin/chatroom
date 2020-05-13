@@ -4,17 +4,27 @@
         <div class="container-fluid py-6">
 
             <!-- Title -->
-            <h2 class="font-bold mb-6">${create_group.title}</h2>
+            <h2 class="font-bold mb-6">${friend.title}</h2>
             <!-- Title -->
 
             <!-- Search -->
             @@include("sidebar-search.html")
             <!-- Search -->
 
+            <!-- Button -->
+            <button type="button" class="btn btn-lg btn-block btn-secondary d-flex align-items-center mb-6" data-toggle="modal" data-target="#invite-friends">
+                Invite friends ？
+                <i class="fe-users ml-auto"></i>
+            </button>
+
             <!-- Tabs -->
             <ul class="nav nav-tabs nav-justified mb-6" role="tablist">
                 <li class="nav-item">
-                    <a href="#create-group-details" class="nav-link active" data-toggle="tab" role="tab" aria-selected="true">Details</a>
+                    <a href="#friend-list" class="nav-link active" data-toggle="tab" role="tab" aria-selected="true">Friends</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#create-group-details" class="nav-link " data-toggle="tab" role="tab" aria-selected="false">Details</a>
                 </li>
 
                 <li class="nav-item">
@@ -27,7 +37,73 @@
             <div class="tab-content" role="tablist">
 
                 <!-- Chat details -->
-                <div id="create-group-details" class="tab-pane fade show active" role="tabpanel">
+                <div id="friend-list" class="tab-pane fade show active" role="tabpanel">
+                    
+                    <!-- Friends -->
+                    <nav class="mb-n6">
+
+                        <div class="mb-6">
+                            <small class="text-uppercase">A</small>
+                        </div>
+
+                        @@loop("../components/friend.html", [
+                            { "name": "Anna Bridges", "photo": "assets/images/avatars/10.jpg", "status": "Online", "url": "chat-2.html" }
+                        ])
+
+                        <div class="mb-6">
+                            <small class="text-uppercase">B</small>
+                        </div>
+
+                        @@loop("../components/friend.html", [
+                            { "name": "Brian Dawson", "photo": "assets/images/avatars/6.jpg", "status": "last seen 2 hours ago", "url": "#" }
+                        ])
+
+                        <div class="mb-6">
+                            <small class="text-uppercase">L</small>
+                        </div>
+
+                        @@loop("../components/friend.html", [
+                            { "name": "Leslie Sutton", "photo": "assets/images/avatars/5.jpg", "status": "last seen 3 days ago", "url": "#" }
+                        ])
+
+                        <div class="mb-6">
+                            <small class="text-uppercase">M</small>
+                        </div>
+
+                        @@loop("../components/friend.html", [
+                            { "name": "Matthew Wiggins", "photo": "assets/images/avatars/4.jpg", "status": "last seen 3 days ago", "url": "#" }
+                        ])
+
+                        <div class="mb-6">
+                            <small class="text-uppercase">S</small>
+                        </div>
+
+                        @@loop("../components/friend.html", [
+                            { "name": "Simon Hensley", "photo": "assets/images/avatars/7.jpg", "status": "last seen 3 days ago", "url": "#" }
+                        ])
+
+                        <div class="mb-6">
+                            <small class="text-uppercase">W</small>
+                        </div>
+
+                        @@loop("../components/friend.html", [
+                            { "name": "William Wright", "photo": "assets/images/avatars/9.jpg", "status": "last seen 3 days ago", "url": "#" },
+                            { "name": "William Greer", "photo": "assets/images/avatars/3.jpg", "status": "last seen 10 minutes ago", "url": "#" }
+                        ])
+
+                        <div class="mb-6">
+                            <small class="text-uppercase">Z</small>
+                        </div>
+
+                        @@loop("../components/friend.html", [
+                            { "name": "Zane Mayes", "photo": "assets/images/avatars/7.jpg", "status": "last seen 3 days ago", "url": "#" }
+                        ])
+
+                    </nav>
+                </div>
+                <!-- Friends -->
+            
+                <div id="create-group-details" class="tab-pane fade" role="tabpanel">
                     <form action="#">
                         <div class="form-group">
                             <label class="small">Photo</label>
@@ -129,13 +205,8 @@
             </div>
             <!-- Create chat -->
 
-        </div>
-    </div>
+            
 
-    <!-- Button -->
-    <div class="pb-6">
-        <div class="container-fluid">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Create group</button>
         </div>
     </div>
 

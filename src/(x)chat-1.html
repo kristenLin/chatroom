@@ -6,7 +6,7 @@
     <!-- Head -->
 
     <body>
-
+       
         <div class="layout">
 
             <!-- Navigation -->
@@ -14,36 +14,14 @@
             <!-- Navigation -->
 
             <!-- Sidebar -->
-            <div class="sidebar">
-                <div class="tab-content h-100" role="tablist">
-                    <div class="tab-pane fade h-100" id="tab-content-create-chat" role="tabpanel">
-                        @@include("particles/sidebar/sidebar-create.html")
-                    </div>
-
-                    <div class="tab-pane fade h-100" id="tab-content-friends" role="tabpanel">
-                        @@include("particles/sidebar/sidebar-friends.html")
-                    </div>
-
-                    <div class="tab-pane fade h-100 show active" id="tab-content-dialogs" role="tabpanel">
-                        @@include("particles/sidebar/sidebar-dialogs.html")
-                    </div>
-
-                    <div class="tab-pane fade h-100" id="tab-content-demos" role="tabpanel">
-                        @@include("particles/sidebar/sidebar-demos.html")
-                    </div>
-
-                    <div class="tab-pane fade h-100" id="tab-content-user" role="tabpanel">
-                        @@include("particles/sidebar/sidebar-user.html")
-                    </div>
-                </div>
-            </div>
+            @@include("particles/sidebar/sidebar-main.html")
             <!-- Sidebar -->
 
             <!-- Main Content -->
             <div class="main main-visible" data-mobile-height="">
 
                 <!-- Chat -->
-                <div id="chat-2" class="chat dropzone-form-js" data-dz-url="some.php">
+                <div id="chat-1" class="chat dropzone-form-js" data-dz-url="some.php">
 
                     <!-- Chat: body -->
                     <div class="chat-body">
@@ -68,14 +46,15 @@
                                     <!-- Chat photo -->
                                     <div class="col-6 col-xl-6">
                                         <div class="media text-center text-xl-left">
-                                            <div class="avatar avatar-sm avatar-online d-none d-lg-inline-block mr-5">
-                                                <img src="assets/images/avatars/10.jpg" class="avatar-img" alt="">
+                                            <div class="avatar avatar-sm d-none d-xl-inline-block mr-5">
+                                                <img src="assets/images/avatars/11.jpg" class="avatar-img" alt="">
                                             </div>
 
                                             <div class="media-body align-self-center text-truncate">
-                                                <h6 class="text-truncate mb-n1">Anna Bridges</h6>
-                                                <span class="badge badge-dot badge-success d-inline-block d-xl-none mr-1"></span>
-                                                <small class="text-muted">Online</small>
+                                                <h6 class="text-truncate mb-n1">Bootstrap Themes</h6>
+                                                <small class="text-muted">35 members</small>
+                                                <small class="text-muted mx-2"> • </small>
+                                                <small class="text-muted">HTML, CSS, and Javascript Help</small>
                                             </div>
                                         </div>
                                     </div>
@@ -83,14 +62,20 @@
                                     <!-- Chat toolbar -->
                                     <div class="col-3 col-xl-6 text-right">
                                         <ul class="nav justify-content-end">
-                                            <li class="nav-item list-inline-item d-none d-xl-block mr-3">
-                                                <a class="nav-link text-muted px-3" data-toggle="collapse" data-target="#chat-2-search" href="#" title="Search this chat">
+                                            <li class="nav-item list-inline-item d-none d-xl-block mr-5">
+                                                <a class="nav-link text-muted px-3" data-toggle="collapse" data-target="#chat-1-search" href="#" title="Search this chat">
                                                     <i class="icon-md fe-search"></i>
                                                 </a>
                                             </li>
 
+                                            <li class="nav-item list-inline-item d-none d-xl-block mr-3">
+                                                <a class="nav-link text-muted px-3" href="#" data-chat-sidebar-toggle="#chat-1-members" title="Add People">
+                                                    <i class="icon-md fe-user-plus"></i>
+                                                </a>
+                                            </li>
+
                                             <li class="nav-item list-inline-item d-none d-xl-block mr-0">
-                                                <a class="nav-link text-muted px-3" href="#" data-chat-sidebar-toggle="#chat-2-info" title="Details">
+                                                <a class="nav-link text-muted px-3" href="#" data-chat-sidebar-toggle="#chat-1-info" title="Details">
                                                     <i class="icon-md fe-more-vertical"></i>
                                                 </a>
                                             </li>
@@ -102,12 +87,17 @@
                                                         <i class="icon-md fe-more-vertical"></i>
                                                     </a>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item d-flex align-items-center" data-toggle="collapse" data-target="#chat-2-search" href="#">
+                                                       
+                                                        <a class="dropdown-item d-flex align-items-center" data-toggle="collapse" data-target="#chat-1-search" href="#">
                                                             Search <span class="ml-auto pl-5 fe-search"></span>
                                                         </a>
 
-                                                        <a class="dropdown-item d-flex align-items-center" href="#" data-chat-sidebar-toggle="#chat-2-info">
+                                                        <a class="dropdown-item d-flex align-items-center" href="#" data-chat-sidebar-toggle="#chat-1-info">
                                                             Chat Info <span class="ml-auto pl-5 fe-more-horizontal"></span>
+                                                        </a>
+
+                                                        <a class="dropdown-item d-flex align-items-center" href="#" data-chat-sidebar-toggle="#chat-1-members">
+                                                            Add Members <span class="ml-auto pl-5 fe-user-plus"></span>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -123,7 +113,7 @@
                         <!-- Chat: Header -->
 
                         <!-- Chat: Search -->
-                        <div class="collapse border-bottom px-lg-8" id="chat-2-search">
+                        <div class="collapse border-bottom px-lg-8" id="chat-1-search">
                             <div class="container-xxl py-4 py-lg-6">
 
                                 <div class="input-group">
@@ -147,8 +137,8 @@
                                 <!-- Message -->
                                 <div class="message">
                                     <!-- Avatar -->
-                                    <a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-2-info">
-                                        <img class="avatar-img" src="assets/images/avatars/10.jpg" alt="">
+                                    <a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-1-user-profile">
+                                        <img class="avatar-img" src="assets/images/avatars/7.jpg" alt="">
                                     </a>
 
                                     <!-- Message: body -->
@@ -160,7 +150,8 @@
 
                                                 <!-- Message: content -->
                                                 <div class="message-content bg-light">
-                                                    <h6 class="mb-2">Anna Bridges</h6>
+                                                    <h6 class="mb-2">William Wright</h6>
+                                                    <h1>${title}</h1>
                                                     <div>Yeah, I'm going to meet a friend of mine at the department store. I have to buy some presents for my parents.</div>
 
                                                     <div class="mt-1">
@@ -322,8 +313,8 @@
                                 <!-- Message -->
                                 <div class="message">
                                     <!-- Avatar -->
-                                    <a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-2-info">
-                                        <img class="avatar-img" src="assets/images/avatars/10.jpg" alt="">
+                                    <a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-1-user-profile">
+                                        <img class="avatar-img" src="assets/images/avatars/7.jpg" alt="">
                                     </a>
 
                                     <!-- Message: body -->
@@ -335,7 +326,7 @@
 
                                                 <!-- Message: content -->
                                                 <div class="message-content bg-light w-100">
-                                                    <h6 class="mb-2">Anna Bridges shared 3 photos:</h6>
+                                                    <h6 class="mb-2">William Wright shared 3 photos:</h6>
                                                     <div class="form-row py-3">
                                                         <div class="col">
                                                             <img class="img-fluid rounded" src="https://themes.2the.me/Boomerang/1.2/assets/images/team/1.jpg" data-action="zoom" alt="">
@@ -477,8 +468,8 @@
                                 <!-- Message -->
                                 <div class="message">
                                     <!-- Avatar -->
-                                    <a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-2-info">
-                                        <img class="avatar-img" src="assets/images/avatars/10.jpg" alt="">
+                                    <a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-1-user-profile">
+                                        <img class="avatar-img" src="assets/images/avatars/9.jpg" alt="">
                                     </a>
 
                                     <!-- Message: body -->
@@ -490,7 +481,7 @@
 
                                                 <!-- Message: content -->
                                                 <div class="message-content bg-light">
-                                                    <h6 class="mb-2">Anna Bridges</h6>
+                                                    <h6 class="mb-2">Matthew Wiggins</h6>
                                                     <div>I'm going to meet a friend of mine at the department store. Yeah, I have to buy some presents for my parents.</div>
 
                                                     <div class="mt-1">
@@ -584,8 +575,8 @@
                                 <!-- Message: Typing -->
                                 <div class="message">
                                     <!-- Avatar -->
-                                    <a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-2-info">
-                                        <img class="avatar-img" src="assets/images/avatars/10.jpg" alt="">
+                                    <a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-1-user-profile">
+                                        <img class="avatar-img" src="assets/images/avatars/7.jpg" alt="">
                                     </a>
 
                                     <!-- Message: body -->
@@ -597,7 +588,7 @@
 
                                                 <!-- Message: content -->
                                                 <div class="message-content bg-light">
-                                                    <div>Anna is typing<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span></div>
+                                                    <div>William is typing<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span></div>
                                                 </div>
                                                 <!-- Message: content -->
 
@@ -629,13 +620,13 @@
                         <div class="chat-footer border-top py-4 py-lg-6 px-lg-8">
                             <div class="container-xxl">
 
-                                <form id="chat-id-2-form" action="assets/php/upload.php" data-emoji-form="">
+                                <form id="chat-id-1-form" action="assets/php/upload.php" data-emoji-form="">
                                     <div class="form-row align-items-center">
                                         <div class="col">
                                             <div class="input-group">
 
                                                 <!-- Textarea -->
-                                                <textarea id="chat-id-2-input" class="form-control bg-transparent border-0" placeholder="Type your message..." rows="1" data-emoji-input="" data-autosize="true"></textarea>
+                                                <textarea id="chat-id-1-input" class="form-control bg-transparent border-0" placeholder="Type your message..." rows="1" data-emoji-input="" data-autosize="true"></textarea>
 
                                                 <!-- Emoji button -->
                                                 <div class="input-group-append">
@@ -646,7 +637,7 @@
 
                                                 <!-- Upload button -->
                                                 <div class="input-group-append">
-                                                    <button id="chat-upload-btn-2" class="btn btn-ico btn-secondary btn-minimal bg-transparent border-0 dropzone-button-js" type="button">
+                                                    <button id="chat-upload-btn-1" class="btn btn-ico btn-secondary btn-minimal bg-transparent border-0 dropzone-button-js" type="button">
                                                         <img src="assets/images/paperclip.svg" data-inject-svg="" alt="">
                                                     </button>
                                                 </div>
@@ -673,7 +664,7 @@
                     <!-- Chat: body -->
 
                     <!-- Chat Details -->
-                    <div id="chat-2-info" class="chat-sidebar">
+                    <div id="chat-1-info" class="chat-sidebar">
                         <div class="d-flex h-100 flex-column">
 
                             <!-- Header -->
@@ -690,7 +681,7 @@
 
                                         <!-- Title(mobile) -->
                                         <li class="text-center d-block d-lg-none">
-                                            <h6 class="mb-n2">Anna Bridges</h6>
+                                            <h6 class="mb-n2">Bootstrap Themes</h6>
                                             <small class="text-muted">Chat Details</small>
                                         </li>
 
@@ -724,97 +715,44 @@
                                 <div class="border-bottom text-center py-9 px-10">
                                     <!-- Photo -->
                                     <div class="avatar avatar-xl mx-5 mb-5">
-                                        <img class="avatar-img" src="assets/images/avatars/10.jpg" alt="">
+                                        <img class="avatar-img" src="assets/images/avatars/11.jpg" alt="">
                                     </div>
-                                    <h5>Anna Bridges</h5>
+                                    <h5>Bootstrap Themes</h5>
                                     <p class="text-muted">Bootstrap is an open source toolkit for developing web with HTML, CSS, and JS.</p>
                                 </div>
 
                                 <!-- Navs -->
-                                <div class="nav nav-tabs nav-justified bg-light rounded-0" role="tablist">
-                                    <a class="nav-item nav-link active" href="#chat-2-user-details" data-toggle="tab" aria-selected="true" role="tab">Details</a>
-                                    <a class="nav-item nav-link" href="#chat-2-user-files" data-toggle="tab"  role="tab">Files</a>
-                                </div>
+                                <ul class="nav nav-tabs nav-justified bg-light rounded-0" role="tablist">
+                                    <li class="nav-item">
+                                        <a href="#chat-id-1-members" class="nav-link active" data-toggle="tab" role="tab" aria-selected="true">Members</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#chat-id-1-files" class="nav-link" data-toggle="tab" role="tab">Files</a>
+                                    </li>
+                                </ul>
                                 <!-- Navs -->
 
-                                <div class="tab-content" role="tablist">
-                                    <!-- Details -->
-                                    <div id="chat-2-user-details" class="tab-pane fade show active" role="tabpanel">
-                                        <ul class="list-group list-group-flush mb-8">
-                                            <li class="list-group-item py-6">
-                                                <div class="media align-items-center">
-                                                    <div class="media-body">
-                                                        <p class="small text-muted mb-0">Country</p>
-                                                        <p>Warsaw, Poland</p>
-                                                    </div>
-                                                    <i class="text-muted icon-sm fe-globe"></i>
-                                                </div>
-                                            </li>
-
-                                            <li class="list-group-item py-6">
-                                                <div class="media align-items-center">
-                                                    <div class="media-body">
-                                                        <p class="small text-muted mb-0">Phone</p>
-                                                        <p>+39 02 87 21 43 19</p>
-                                                    </div>
-                                                    <i class="text-muted icon-sm fe-mic"></i>
-                                                </div>
-                                            </li>
-
-                                            <li class="list-group-item py-6">
-                                                <div class="media align-items-center">
-                                                    <div class="media-body">
-                                                        <p class="small text-muted mb-0">Email</p>
-                                                        <p>anna@gmail.com</p>
-                                                    </div>
-                                                    <i class="text-muted icon-sm fe-mail"></i>
-                                                </div>
-                                            </li>
-
-                                            <li class="list-group-item py-6">
-                                                <div class="media align-items-center">
-                                                    <div class="media-body">
-                                                        <p class="small text-muted mb-0">Time</p>
-                                                        <p>10:03 am</p>
-                                                    </div>
-                                                    <i class="text-muted icon-sm fe-clock"></i>
-                                                </div>
-                                            </li>
-                                        </ul>
-
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item py-6">
-                                                <a href="#" class="media text-muted">
-                                                    <div class="media-body align-self-center">
-                                                        Twitter
-                                                    </div>
-                                                    <i class="icon-sm fe-twitter"></i>
-                                                </a>
-                                            </li>
-
-                                            <li class="list-group-item py-6">
-                                                <a href="#" class="media text-muted">
-                                                    <div class="media-body align-self-center">
-                                                    Facebook
-                                                    </div>
-                                                    <i class="icon-sm fe-facebook"></i>
-                                                </a>
-                                            </li>
-
-                                            <li class="list-group-item py-6">
-                                                <a href="#" class="media text-muted">
-                                                    <div class="media-body align-self-center">
-                                                        Github
-                                                    </div>
-                                                    <i class="icon-sm fe-github"></i>
-                                                </a>
-                                            </li>
+                                <div class="tab-content">
+                                    <!-- Members -->
+                                    <div id="chat-id-1-members" class="tab-pane fade show active">
+                                        <ul class="list-group list-group-flush list-group-no-border-first">
+                                            @@loop("particles/components/chat-member.html", [
+                                                { "name": "Anna Bridges", "photo": "assets/images/avatars/10.jpg", "status": "Online" },
+                                                { "name": "Simon Hensley", "photo": "assets/images/avatars/7.jpg", "status": "Online" },
+                                                { "name": "William Wright", "photo": "assets/images/avatars/9.jpg", "status": "last seen 7 hours ago" },
+                                                { "name": "Leslie Sutton", "photo": "assets/images/avatars/5.jpg", "status": "last seen 6 days ago" },
+                                                { "name": "Matthew Wiggins", "photo": "assets/images/avatars/4.jpg", "status": "last seen 2 days ago" },
+                                                { "name": "Thomas Walker", "photo": "assets/images/avatars/3.jpg", "status": "last seen 10 minutes ago" },
+                                                { "name": "Zane Mayes", "photo": "assets/images/avatars/2.jpg", "status": "last seen 6 days ago" },
+                                                { "name": "Brian Dawson", "photo": "assets/images/avatars/6.jpg", "status": "last seen 2 days ago" },
+                                                { "name": "William Greer", "photo": "assets/images/avatars/3.jpg", "status": "last seen 10 minutes ago" }
+                                            ])
                                         </ul>
                                     </div>
-                                    <!-- Details -->
+                                    <!-- Members -->
 
                                     <!-- Files -->
-                                    <div id="chat-2-user-files" class="tab-pane fade" role="tabpanel">
+                                    <div id="chat-id-1-files" class="tab-pane fade">
                                         <ul class="list-group list-group-flush list-group-no-border-first">
                                             @@loop("particles/components/file.html", [
                                                 { "name": "E5419783-047D-4B4C-B30E-F24DD8247731.JPG", "type": "txt", "size": "40mb", "color": "primary" },
@@ -827,7 +765,6 @@
                                     </div>
                                     <!-- Files -->
                                 </div>
-
                             </div>
                             <!-- Body -->
 
@@ -835,11 +772,307 @@
                     </div>
                     <!-- Chat Details -->
 
+                    <!-- New members -->
+                    <div id="chat-1-members" class="chat-sidebar">
+                        <div class="d-flex h-100 flex-column">
+
+                            <!-- Header -->
+                            <div class="border-bottom py-4 py-lg-6">
+                                <div class="container-fluid">
+
+                                    <ul class="nav justify-content-between align-items-center">
+                                        <!-- Close sidebar -->
+                                        <li class="nav-item">
+                                            <a class="nav-link text-muted px-0" href="#" data-chat-sidebar-close="">
+                                                <i class="icon-md fe-chevron-left"></i>
+                                            </a>
+                                        </li>
+
+                                        <!-- Title(mobile) -->
+                                        <li class="text-center d-block d-lg-none">
+                                            <h6 class="mb-n2">Bootstrap Themes</h6>
+                                            <small class="text-muted">Add Members</small>
+                                        </li>
+
+                                        <!-- Dropdown -->
+                                        <li class="nav-item">
+                                            <div class="dropdown">
+                                                <a class="nav-link text-muted px-0" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="icon-md fe-sliders"></i>
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                                        Mute
+                                                        <span class="ml-auto fe-bell"></span>
+                                                    </a>
+                                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                                        Delete
+                                                        <span class="ml-auto fe-trash-2"></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                            <!-- Header -->
+
+                            <!-- Body -->
+                            <div class="hide-scrollbar flex-fill">
+                                <!-- Search -->
+                                <div class="border-bottom py-7">
+                                    <div class="container-fluid">
+
+                                        <form action="#">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control form-control-lg" placeholder="Search for users..." aria-label="Search users...">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-lg btn-ico btn-secondary btn-minimal" type="submit">
+                                                        <i class="fe-search"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                                <!-- Search -->
+
+                                <!-- Members -->
+                                <form action="#">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item py-4">
+                                            <small class="text-uppercase">A</small>
+                                        </li>
+
+                                        @@loop("particles/components/chat-new-member.html", [
+                                            { "name": "Anna Bridges", "photo": "assets/images/avatars/10.jpg", "status": "Online", "id": "chat-1-user-1" }
+                                        ])
+
+                                        <li class="list-group-item py-4">
+                                            <small class="text-uppercase">B</small>
+                                        </li>
+
+                                        @@loop("particles/components/chat-new-member.html", [
+                                            { "name": "Brian Dawson", "photo": "assets/images/avatars/6.jpg", "status": "last seen 2 hours ago", "id": "chat-1-user-2" }
+                                        ])
+
+                                        <li class="list-group-item py-4">
+                                            <small class="text-uppercase">L</small>
+                                        </li>
+
+                                        @@loop("particles/components/chat-new-member.html", [
+                                            { "name": "Leslie Sutton", "photo": "assets/images/avatars/5.jpg", "status": "last seen 3 days ago", "id": "chat-1-user-3" }
+                                        ])
+
+                                        <li class="list-group-item py-4">
+                                            <small class="text-uppercase">M</small>
+                                        </li>
+
+                                        @@loop("particles/components/chat-new-member.html", [
+                                            { "name": "Matthew Wiggins", "photo": "assets/images/avatars/4.jpg", "status": "last seen 3 days ago", "id": "chat-1-user-4" }
+                                        ])
+
+                                        <li class="list-group-item py-4">
+                                            <small class="text-uppercase">S</small>
+                                        </li>
+
+                                        @@loop("particles/components/chat-new-member.html", [
+                                            { "name": "Simon Hensley", "photo": "assets/images/avatars/7.jpg", "status": "last seen 3 days ago", "id": "chat-1-user-5" }
+                                        ])
+
+                                        <li class="list-group-item py-4">
+                                            <small class="text-uppercase">W</small>
+                                        </li>
+
+                                        @@loop("particles/components/chat-new-member.html", [
+                                            { "name": "William Wright", "photo": "assets/images/avatars/9.jpg", "status": "last seen 3 days ago", "id": "chat-1-user-6" },
+                                            { "name": "William Greer", "photo": "assets/images/avatars/3.jpg", "status": "last seen 10 minutes ago", "id": "chat-1-user-7" }
+                                        ])
+
+                                        <li class="list-group-item py-4">
+                                            <small class="text-uppercase">Z</small>
+                                        </li>
+
+                                        @@loop("particles/components/chat-new-member.html", [
+                                            { "name": "Zane Mayes", "photo": "assets/images/avatars/7.jpg", "status": "last seen 3 days ago", "id": "chat-1-user-8" }
+                                        ])
+                                    </ul>
+                                </form>
+                                <!-- Members -->
+                            </div>
+                            <!-- Body -->
+
+                            <!-- Button -->
+                            <div class="border-top py-7">
+                                <div class="container-fluid">
+                                    <button class="btn btn-lg btn-block btn-primary d-flex align-items-center" type="submit">
+                                        Add members
+                                        <span class="fe-user-plus ml-auto"></span>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- New members -->
+
+                    <!-- User's details -->
+                    <div id="chat-1-user-profile" class="chat-sidebar">
+                        <div class="d-flex h-100 flex-column">
+
+                            <!-- Header -->
+                            <div class="border-bottom py-4 py-lg-6">
+                                <div class="container-fluid">
+
+                                    <ul class="nav justify-content-between align-items-center">
+                                        <!-- Close sidebar -->
+                                        <li class="nav-item list-inline-item">
+                                            <a class="nav-link text-muted px-0" href="#" data-chat-sidebar-close="">
+                                                <i class="icon-md fe-chevron-left"></i>
+                                            </a>
+                                        </li>
+
+                                        <!-- Title(mobile) -->
+                                        <li class="text-center d-block d-lg-none">
+                                            <h6 class="mb-n2">William Wright</h6>
+                                            <small class="text-muted">User Details</small>
+                                        </li>
+
+                                        <!-- Dropdown -->
+                                        <li class="nav-item list-inline-item">
+                                            <div class="dropdown">
+                                                <a class="nav-link text-muted px-0" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="icon-md fe-sliders"></i>
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                                        Mute <span class="ml-auto fe-bell"></span>
+                                                    </a>
+                                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                                        Delete <span class="ml-auto fe-trash-2"></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                            <!-- Header -->
+
+                            <!-- Body -->
+                            <div class="hide-scrollbar flex-fill">
+
+                                <div class="border-bottom text-center py-9 px-10">
+                                    <!-- Photo -->
+                                    <div class="avatar avatar-xl mx-5 mb-5">
+                                        <img class="avatar-img" src="assets/images/avatars/9.jpg" alt="">
+                                        <div class="badge badge-sm badge-pill badge-primary badge-border-basic badge-top-right">
+                                            <span class="text-uppercase">Pro</span>
+                                        </div>
+                                    </div>
+                                    <h5>William Wright</h5>
+                                    <p class="text-muted">Bootstrap is an open source toolkit for developing web with HTML, CSS, and JS.</p>
+                                </div>
+
+                                <ul class="list-group list-group-flush mb-8">
+                                    <li class="list-group-item py-6">
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                                <p class="small text-muted mb-0">Country</p>
+                                                <p>Warsaw, Poland</p>
+                                            </div>
+                                            <i class="text-muted icon-sm fe-globe"></i>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-group-item py-6">
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                                <p class="small text-muted mb-0">Phone</p>
+                                                <p>+39 02 87 21 43 19</p>
+                                            </div>
+                                            <i class="text-muted icon-sm fe-mic"></i>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-group-item py-6">
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                                <p class="small text-muted mb-0">Email</p>
+                                                <p>anna@gmail.com</p>
+                                            </div>
+                                            <i class="text-muted icon-sm fe-mail"></i>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-group-item py-6">
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                                <p class="small text-muted mb-0">Time</p>
+                                                <p>10:03 am</p>
+                                            </div>
+                                            <i class="text-muted icon-sm fe-clock"></i>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item py-6">
+                                        <a href="#" class="media text-muted">
+                                            <div class="media-body align-self-center">
+                                                Twitter
+                                            </div>
+                                            <i class="icon-sm fe-twitter"></i>
+                                        </a>
+                                    </li>
+
+                                    <li class="list-group-item py-6">
+                                        <a href="#" class="media text-muted">
+                                            <div class="media-body align-self-center">
+                                            Facebook
+                                            </div>
+                                            <i class="icon-sm fe-facebook"></i>
+                                        </a>
+                                    </li>
+
+                                    <li class="list-group-item py-6">
+                                        <a href="#" class="media text-muted">
+                                            <div class="media-body align-self-center">
+                                                Github
+                                            </div>
+                                            <i class="icon-sm fe-github"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Body -->
+
+                            <!-- Button -->
+                            <div class="border-top py-7">
+                                <div class="container-fluid">
+                                    <button class="btn btn-lg btn-block btn-primary d-flex align-items-center" type="submit">
+                                        Add friend
+                                        <span class="fe-user-plus ml-auto"></span>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- User's details -->
+
                 </div>
                 <!-- Chat -->
 
             </div>
             <!-- Main Content -->
+
+            <!-- Active Users: Sidebar -->
+
+            <!-- Active Users: Sidebar -->
 
         </div>
         <!-- Layout -->
@@ -855,6 +1088,11 @@
         <!-- Scripts -->
         @@include("particles/script/script.html")
         <!-- Scripts -->
+
+          <!-- apis -->
+          @@include("particles/script/api.html")
+          <!-- pais -->
+  
 
     </body>
 </html>
