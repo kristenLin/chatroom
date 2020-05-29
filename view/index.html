@@ -88,14 +88,14 @@
     <div id="container">
         <div id="status-box">Server: <span id="status">-</span> / <span id="online">0</span> online.</div>
         <div id="content">
-            <!--div class="msg">
+            <div class="msg">
                 <span class="name">Duye</span>
                 Hello!
             </div>
             <div class="msg">
                 <span class="name">Alice</span>
                 Hi!
-            </div-->
+            </div>
         </div>
         <div id="send-box">
             <form id="send-form">
@@ -114,35 +114,38 @@
             var sendForm = document.getElementById("send-form");
             var content = document.getElementById("content");    // 加入這行
 
-            // 加入這段
-    sendForm.addEventListener("submit", function (e) {
-        e.preventDefault();
- 
-        var formData = {};
-        var formChild = sendForm.children;
- 
-        for (var i=0; i< sendForm.childElementCount; i++) {
-            var child = formChild[i];
-            if (child.name !== "") {
-                formData[child.name] = child.value;
-            }
-        }
-        socket.emit("send", formData);
-    });
+                    // 加入這段
+            sendForm.addEventListener("submit", function (e) {
+                e.preventDefault();
+        
+                var formData = {};
+                var formChild = sendForm.children; //3 html-arraies : name, msg, submit
+               
+                for (var i=0; i< sendForm.childElementCount; i++) {
+                    var child = formChild[i];
+                    //child.name tag = name, msg 
+                    if (child.name !== "") {
+                        // formData = {name:$name}
+                        formData[child.name] = child.value;
+                    }
+                }
+                // formData = {name:$name, msg: $msg}
+                socket.emit("send", formData);
+            });
 
             socket.on("msg", function (d) {
-        var msgBox = document.createElement("div")
-            msgBox.className = "msg";
-        var nameBox = document.createElement("span");
-            nameBox.className = "name";
-        var name = document.createTextNode(d.name);
-        var msg = document.createTextNode(d.msg);
- 
-        nameBox.appendChild(name);
-        msgBox.appendChild(nameBox);
-        msgBox.appendChild(msg);
-        content.appendChild(msgBox);
-    });
+                // d = {name:$name, msg: $msg}
+                var msgBox = document.createElement("div")
+                    msgBox.className = "msg";
+                var nameBox = document.createElement("span");
+                    nameBox.className = "name";
+                var name = document.createTextNode(d.name);
+                var msg = document.createTextNode(d.msg);
+                nameBox.appendChild(name); //<span class="name">PPP</span>
+                msgBox.appendChild(nameBox); //<div class="msg"><span class="name">PPP</span></div>
+                msgBox.appendChild(msg);     //<div class="msg"><span class="name">PPP</span>wwwwww</div>
+                content.appendChild(msgBox);
+            });
   
             socket.on("connect", function () {
                 status.innerText = "Connected.";

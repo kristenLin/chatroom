@@ -2143,7 +2143,32 @@
                             </div>
                         </div>
                         <!-- Chat: Search -->
+<script>
 
+    console.log(0)
+</script>
+<script>
+   
+    let chat_form = document.getElementById("chat-id-1-form" );
+    chat_form.addEventListener("submit", (e)=>{
+        e.preventDefault();
+        
+        let formData = {};
+        let formChild = chat_form.children; //3 html-arraies : name, msg, submit
+        console.log(formChild)
+        for (var i=0; i< chat_form.childElementCount; i++) {
+            var child = formChild[i];
+            //child.name tag = name, msg 
+            if (child.name !== "") {
+                // formData = {name:$name}
+                formData[child.name] = child.value;
+            }
+        }
+        // formData = {name:$name, msg: $msg}
+        socket.emit("send", formData);
+    })
+
+</script>
                         <!-- Chat: Content-->
                         <div class="chat-content px-lg-8">
                             <div class="container-xxl py-6 py-lg-10">
@@ -2166,7 +2191,7 @@
                                                 <div class="message-content bg-light">
                                                     <h6 class="mb-2">William Wright</h6>
                                                     <h1>${title}</h1>
-                                                    <div>Yeah, I'm going to meet a friend of mine at the department store. I have to buy some presents for my parents.</div>
+                                                    <div id="talk_w">Yeah, I'm going to meet a friend of mine at the department store. I have to buy some presents for my parents.</div>
 
                                                     <div class="mt-1">
                                                         <small class="opacity-65">8 mins ago</small>
