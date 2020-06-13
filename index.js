@@ -265,6 +265,11 @@ io.on('connection', (socket) => {
         io.emit("msg", msg);
     });
 
+    socket.on("send_chatroom", (send_chatroom) => {
+      console.log(send_chatroom);
+       io.emit("send_chatroom", send_chatroom);
+   });
+
     socket.on('disconnect', () => {
         // 有人離線了，扣人
         onlineCount = (onlineCount < 0) ? 0 : onlineCount-=1;
